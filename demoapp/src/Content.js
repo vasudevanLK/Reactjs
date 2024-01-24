@@ -1,38 +1,32 @@
 import React, { useState } from 'react'
-
-const Content = () => {
-
-    const[items,setItems] = useState([
-        {id:1,
-         checked:true,
-         item:"coding"   
-        },
-        {id:2,
-            checked:false,
-            item:"old-coding"   
-        },
-        {id:3,
-            checked:false,
-            item:"new-coding"   
-        }
-  ])
-
+import {FaTrashAlt} from 'react-icons/fa'
+const Content = ({items,handleCheck,handleDelete}) => {
+  
 
   return (
     <main className='main'>
+      {items.length ?(
         <ul>
            {items.map((item)=>(
-            <li>
+            <li className='item' key={item.id}>
                 <input
                   type='checkbox'
+                  onChange={()=>handleCheck(item.id)}
                   checked = {item.checked}
                 />
-                <label>{item.item}</label>
-                <button>Delete</button>
+                <label className='label' onDoubleClick={()=>handleCheck(item.id)} style={(item.checked)?{textDecoration:"line-through"}:null} >{item.item}</label>
+                <FaTrashAlt
+                onClick={()=>handleDelete(item.id)}
+                role='button'
+                tabIndex={'0'}
+                
+                />
             </li>
 
            ))}
-        </ul>
+        </ul>):(
+          <p style={{fontWeight:"100"}}>YOUR LIST IS EMPTY</p>
+        )}
 
     </main>
   )
