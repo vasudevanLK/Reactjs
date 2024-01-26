@@ -21,7 +21,7 @@ function App(){
     }
 ])
 
-const [newItem,setNewItem] = useState("")
+const [newItem,setNewItem] = useState('')
 
 
 const handleCheck=(id) =>{
@@ -37,18 +37,18 @@ const listItems = items.filter((item)=>item.id!== id )
 setItems(listItems)
 }
 
-const handleSubmit = (Event)=>{
-  e.preventDefault();
-  addItems(newItem)
- setNewItem('')
-}
-
 const addItems=(item)=>{
   const id = items.length ? items[items.length - 1].id + 1 : 1;
   const addItem = {id,checked:false,item}
   const listitems = [...items,addItem]
   setItems(listitems)
   localStorage.setItem("todo_list",JSON.stringify(listitems))
+}
+const handleSubmit = (e)=>{
+  e.preventDefault()
+  if(!newItem) return;
+  addItems(newItem)
+  setNewItem('')
 }
 
   return(
@@ -58,7 +58,7 @@ const addItems=(item)=>{
       />
       <AddItems
       newItem ={newItem}
-      setNewItem ={setNewItem}
+      SetNewItem ={setNewItem}
       handleSubmit = {handleSubmit}
       />
       <Content
